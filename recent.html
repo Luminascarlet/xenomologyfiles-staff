@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="xeno_icon.png">
+    <title>Recent Updates - Xenomology Files</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(45, 45, 45, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(45, 45, 45, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(30, 30, 30, 0.8) 0%, #1a1a1a 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(100px) saturate(150%);
+            -webkit-backdrop-filter: blur(100px) saturate(150%);
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+        }
+
+        .nav-bar {
+            background-color: #2d2d2d;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .nav-bar a:hover {
+            color: #a0a0a0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .recent-list {
+            margin-top: 30px;
+        }
+
+        .recent-item {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recent-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .recent-item-content {
+            flex-grow: 1;
+        }
+
+        .recent-item h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .recent-item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .recent-item p {
+            color: #a0a0a0;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .update-date {
+            color: #888;
+            font-size: 0.8em;
+            padding-left: 20px;
+            white-space: nowrap;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div>
+                <h3 style="margin: 5px; font-size: 1.5em;">Xenomology Files: Staff Wiki</h3>
+                <a href="home.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="recent.html">Recent</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="text" id="quickSearch" placeholder="Quick search..." 
+                        style="padding: 5px 10px 5px 35px; border: none; border-radius: 4px; background-color: #3d3d3d; color: white; font-family: 'JetBrains Mono', monospace; width: 200px;">
+                    <i class="material-icons" style="position: absolute; left: 8px; color: #888;">search</i>
+                </div>
+            </div>
+            
+            <script>
+                document.getElementById('quickSearch').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const searchTerm = this.value;
+                        if (searchTerm) {
+                            window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Recent Updates</h1>
+        
+        <div class="recent-list">
+            <div class="recent-item">
+                <div class="recent-item-content">
+                    <a href="luminascarlet.html">
+                        <h3>Luminascarlet</h3>
+                        <p>Updated profile information and added new projects</p>
+                    </a>
+                </div>
+                <div class="update-date">November 7, 2025</div>
+            </div>
+
+            <div class="recent-item">
+                <div class="recent-item-content">
+                    <a href="entity_night.html">
+                        <h3>entity_night</h3>
+                        <p>Added new photography portfolio</p>
+                    </a>
+                </div>
+                <div class="update-date">November 5, 2025</div>
+            </div>
+
+            <div class="recent-item">
+                <div class="recent-item-content">
+                    <a href="cupidmissy.html">
+                        <h3>CupidMissy</h3>
+                        <p>Updated achievements and milestones</p>
+                    </a>
+                </div>
+                <div class="update-date">November 3, 2025</div>
+            </div>
+
+            <div class="recent-item">
+                <div class="recent-item-content">
+                    <a href="titanicmesh.html">
+                        <h3>TitanicMesh</h3>
+                        <p>Added new UGC creations showcase</p>
+                    </a>
+                </div>
+                <div class="update-date">November 1, 2025</div>
+            </div>
+
+            <div class="recent-item">
+                <div class="recent-item-content">
+                    <a href="lumeko_tan.html">
+                        <h3>Lumeko_tan</h3>
+                        <p>Updated artwork gallery</p>
+                    </a>
+                </div>
+                <div class="update-date">October 31, 2025</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

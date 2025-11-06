@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="xeno_icon.png">
+    <title>Search - Xenomology Files</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(45, 45, 45, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(45, 45, 45, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(30, 30, 30, 0.8) 0%, #1a1a1a 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(100px) saturate(150%);
+            -webkit-backdrop-filter: blur(100px) saturate(150%);
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+        }
+
+        .nav-bar {
+            background-color: #2d2d2d;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .nav-bar a:hover {
+            color: #a0a0a0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .search-container {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #searchInput {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3d3d3d;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        #searchInput:focus {
+            outline: 2px solid #555;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: #4d4d4d;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .search-button:hover {
+            background-color: #5d5d5d;
+        }
+
+        .search-results {
+            margin-top: 30px;
+        }
+
+        .result-item {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .result-item h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .result-item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .result-item p {
+            color: #a0a0a0;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .highlight {
+            background-color: #4d4d4d;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div>
+                <h3 style="margin: 5px; font-size: 1.5em;">Xenomology Files: Staff Wiki</h3>
+                <a href="home.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="recent.html">Recent</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="text" id="quickSearch" placeholder="Quick search..." 
+                        style="padding: 5px 10px 5px 35px; border: none; border-radius: 4px; background-color: #3d3d3d; color: white; font-family: 'JetBrains Mono', monospace; width: 200px;">
+                    <i class="material-icons" style="position: absolute; left: 8px; color: #888;">search</i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Search Wiki</h1>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search articles..." autofocus>
+            <button class="search-button" onclick="performSearch()">Search</button>
+        </div>
+
+        <div id="searchResults" class="search-results">
+            <!-- Search results will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Wiki pages data
+        const wikiPages = [
+            {
+                title: 'CupidMissy',
+                url: 'cupidmissy.html',
+                content: 'Filipino former RTC member, Roblox E-girl goober, founder of Xenonology, TechnicallyMissy, Missehh',
+                description: 'Filipino former RTC member, founder of Xenonology'
+            },
+            {
+                title: 'entity_night',
+                url: 'entity_night.html',
+                content: 'American artist photographer, graphics designer, audiophile/music enjoyer, Admin of Xenonology, Aly, Alyssa, Ent, dancer, singer, colorblind',
+                description: 'American artist, photographer, and Admin of Xenonology'
+            },
+            {
+                title: 'Luminascarlet',
+                url: 'luminascarlet.html',
+                content: 'Filipino Roblox GFX creator, music producer, Social & Community Manager of Xenonology, Lumi',
+                description: 'Filipino GFX creator and Social & Community Manager'
+            },
+            {
+                title: 'TitanicMesh',
+                url: 'titanicmesh.html',
+                content: 'Egyptian Roblox UGC creator, Social Manager of Xenonology, Tmesh, EmoMesh, KettleMesh',
+                description: 'Egyptian UGC creator and Social Manager of Xenonology'
+            },
+            {
+                title: 'Lumeko_tan',
+                url: 'lumeko_tan.html',
+                content: 'Artist, neko, Admin of Xenonology, Lumine, Lumeko',
+                description: 'Artist, neko, and Admin of Xenonology'
+            }
+        ];
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            if (!searchTerm) {
+                resultsContainer.innerHTML = '<p>Please enter a search term</p>';
+                return;
+            }
+
+            const results = wikiPages.filter(page => 
+                page.title.toLowerCase().includes(searchTerm) ||
+                page.content.toLowerCase().includes(searchTerm)
+            );
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p>No results found</p>';
+                return;
+            }
+
+            results.forEach(page => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result-item';
+                
+                const highlightText = (text) => {
+                    const regex = new RegExp(searchTerm, 'gi');
+                    return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+                };
+
+                resultDiv.innerHTML = `
+                    <a href="${page.url}">
+                        <h3>${highlightText(page.title)}</h3>
+                        <p>${highlightText(page.description)}</p>
+                    </a>
+                `;
+                
+                resultsContainer.appendChild(resultDiv);
+            });
+        }
+
+        // Enable search on Enter key press
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Auto-search if URL has search parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('q');
+        if (searchQuery) {
+            document.getElementById('searchInput').value = searchQuery;
+            performSearch();
+        }
+    </script>
+</body>
+</html>

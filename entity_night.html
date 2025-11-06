@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="xeno_icon.png">
+    <title>entity_night - Xenomology Files</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(147, 112, 219, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(72, 61, 139, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(106, 90, 205, 0.1) 0%, #1a1a1a 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(100px) saturate(150%);
+            -webkit-backdrop-filter: blur(100px) saturate(150%);
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+        }
+
+        .nav-bar {  
+            background-color: #2d2d2d;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .nav-bar a:hover {
+            color: #a0a0a0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #431558;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #3d3d3d;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .info-card {
+            background-color: #4c2b6b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card h2 {
+            margin-top: 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .info-label {
+            color: #999;
+            font-weight: bold;
+        }
+
+        .info-value {
+            color: #fff;
+            text-align: right;
+        }
+
+        h2 {
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        p {
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        .website-link {
+            margin-top: 15px;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        .website-link a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #391e52;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .website-link a:hover {
+            color: #ffffff;
+            background-color: #743d8a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div>
+                <h3 style="margin: 5px; font-size: 1.5em;">Xenomology Files: Staff Wiki</h3>
+                <a href="home.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="recent.html">Recent</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="text" id="quickSearch" placeholder="Quick search..." 
+                        style="padding: 5px 10px 5px 35px; border: none; border-radius: 4px; background-color: #3d3d3d; color: white; font-family: 'JetBrains Mono', monospace; width: 200px;">
+                    <i class="material-icons" style="position: absolute; left: 8px; color: #888;">search</i>
+                </div>
+            </div>
+            
+            <script>
+                document.getElementById('quickSearch').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const searchTerm = this.value;
+                        if (searchTerm) {
+                            window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 20px;">
+        <div class="header">
+            <div class="profile-image">
+                <img src="img/Alyssa.png" alt="EntityNight" style="width: 100%; height: 100%; border-radius: 50%; border: 2px solid #ffffff;">
+            </div>
+            <h1>entity_night</h1>
+        </div>
+
+        <div class="info-card">
+            <h2>Basic Info</h2>
+            <div class="info-grid">
+                <div class="info-label">Birthdate</div>
+                <div class="info-value">October 9, 2001</div>
+
+                <div class="info-label">Other names</div>
+                <div class="info-value">Aly, Alyssa, Ent</div>
+                
+                <div class="info-label">Origin</div>
+                <div class="info-value">Utah, United States</div>
+                
+                
+                <div class="info-label">Known as</div>
+                <div class="info-value">Admin of Xenonology</div>
+
+                <div class="info-label">Zodiac sign</div>
+                <div class="info-value">Libra</div>
+
+                <div class="website-link">
+                    <a href="https://cosmos.so/entitynight" target="_blank">Aly's Website</a>
+                </div>
+            </div>
+        </div>
+
+        <h2>About</h2>
+        <p>Aly (also known as entity_night or ent for short) is an American artist photographer, graphics designer, audiophile/music enjoyer, and one of the Admins of Xenomology.</p>
+
+        <h2>Other Info</h2>
+        <div style="margin-top: 10px;">
+            <p>She likes to play musical instruments like violin, piano, flute, etc.</p>
+            <h2>More about Aly</h2>
+            <p>According to Aly, she have a balcony door made of bulletproof glass, a fully soundproof house and a bedroom, and how she have a 360 Dolby surround sound speaker setup.
+                <br>Aly currently studies at a university majoring computer science.
+                <br>Aly is a dancer, and a singer.
+                <br>Aly has a colorblindness (Achromatopsia)
+                <br>"It ain't gay if the balls don't touch" - entity_night
+            </p>
+            <img src="img/cards/file-2.png" alt="Entity_Night quote 1" style="width: 100%; max-width: 600px; border-radius: 8px; margin-top: 10px;">
+            <img src="img/cards/alyquotev1.png" alt="Entity_Night quote 2" style="width: 100%; max-width: 600px; border-radius: 8px; margin-top: 10px;">
+            <img src="img/cards/alyquotev2.png" alt="Entity_Night quote 3" style="width: 100%; max-width: 600px; border-radius: 8px; margin-top: 10px;">
+            <img src="img/cards/alyquotev3.png" alt="Entity_Night quote 4" style="width: 100%; max-width: 600px; border-radius: 8px; margin-top: 10px;">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
